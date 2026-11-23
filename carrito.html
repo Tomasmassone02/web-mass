@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrito · MASS</title>
+  <meta name="description" content="Los muebles que configuraste en MASS, listos para comprar.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <section class="seccion seccion--compacta">
+      <div class="wrap">
+        <ol class="pasos-compra" aria-label="Pasos de la compra">
+          <li aria-current="step"><span>1</span>Carrito</li>
+          <li><span>2</span>Datos y entrega</li>
+          <li><span>3</span>Confirmación</li>
+        </ol>
+        <h1 class="titulo-m titulo-pagina">Tu carrito</h1>
+      </div>
+    </section>
+    <section class="seccion" style="padding-top:32px">
+      <div class="wrap compra">
+        <div>
+          <div class="items" id="items"></div>
+          <div class="vacio" id="vacio" hidden>
+            <h2>Tu carrito está vacío</h2>
+            <p>Elegí un mueble, personalizalo y tocá “Agregar al carrito”.</p>
+            <a class="btn btn--primario" href="muebles.html">Ver los muebles <i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+        <aside class="caja caja--resumen" id="resumen-caja">
+          <h2 class="titulo-s">Resumen</h2>
+          <dl class="totales">
+            <dt>Subtotal (<span id="cant-items">0</span> muebles)</dt><dd id="subtotal"></dd>
+            <dt>Envío</dt><dd>Según destino</dd>
+          </dl>
+          <div class="total"><span>Total estimado</span><b id="total"></b></div>
+          <a class="btn btn--oscuro btn--compra" href="compra.html">Iniciar compra <i aria-hidden="true">→</i></a>
+          <a class="link-chico" href="muebles.html">Seguir comprando</a>
+          <ul class="garantias garantias--col" id="garantias"></ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/carrito.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colores · MASS</title>
+  <meta name="description" content="Catálogo de colores MASS: lisos y maderas en melamina de 18 mm. Probalos en 3D sobre un mueble.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <section class="portada">
+      <div class="wrap" data-entrar>
+        <p class="etiqueta">Catálogo de colores</p>
+        <h1>Probá el color antes de pedirlo</h1>
+        <p>Tocá una muestra y mirala sobre la cómoda en 3D. Todos los colores vienen en placa de melamina de 18 mm, con canto al tono.</p>
+      </div>
+    </section>
+    <section class="seccion" style="border-bottom:0">
+      <div class="wrap">
+        <div class="colores-visor">
+          <div class="visor" id="visor" role="img" aria-label="Cómoda en 3D con el color elegido. Arrastrá para girarla."></div>
+          <div class="colores-visor__info">
+            <div style="display:grid;gap:10px">
+              <p class="etiqueta" id="c-familia"></p>
+              <h2 class="colores-visor__nombre" id="c-nombre"></h2>
+            </div>
+            <div class="colores-visor__chip" id="c-chip"></div>
+            <a class="btn btn--primario" id="c-usar" href="mueble.html">Configurar con este color <i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+        <div id="familias"></div>
+      </div>
+    </section>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var colores = MASS.coloresDisponibles();
+      var p = MASS.producto(MASS.sitio.productoDestacado) || MASS.productos[0];
+      var conf = MASS.confDefecto(p);
+      var actual = new URLSearchParams(location.search).get("color") || conf.color;
+      var visor = new MASS3D.Visor(MASS.$("#visor"), { yaw: -0.55, margen: 1.3 });
+
+      var familias = [];
+      colores.forEach(function (c) { if (familias.indexOf(c.familia) < 0) familias.push(c.familia); });
+      MASS.$("#familias").innerHTML = familias.map(function (f) {
+        return '<div class="familia"><h3>' + MASS.esc(f) + '</h3><div class="muestras">' +
+          colores.filter(function (c) { return c.familia === f; }).map(function (c) {
+            return '<button type="button" class="muestra" data-color="' + c.id + '" aria-pressed="false">' +
+              '<span class="muestra__color' + (c.veta ? " veta" : "") + '" style="background-color:' + c.hex + '"></span>' +
+              '<span class="muestra__nombre">' + MASS.esc(c.nombre) + "<span>" + (c.veta ? "Madera" : "Liso") + "</span></span></button>";
+          }).join("") + "</div></div>";
+      }).join("");
+
+      function elegir(id, mover) {
+        var c = MASS.color(id);
+        actual = c.id;
+        MASS.$$("[data-color]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-color") === c.id); });
+        MASS.$("#c-nombre").textContent = c.nombre;
+        MASS.$("#c-familia").textContent = c.familia + " · Melamina 18 mm";
+        var chip = MASS.$("#c-chip");
+        chip.style.backgroundColor = c.hex;
+        chip.className = "colores-visor__chip" + (c.veta ? " veta" : "");
+        MASS.$("#c-usar").href = "mueble.html?id=" + p.id + "&color=" + c.id;
+        conf.color = c.id;
+        visor.mostrar(MASS.conf3d(p, conf));
+        history.replaceState(null, "", "colores.html?color=" + c.id);
+        if (mover && window.innerWidth < 860) MASS.$("#visor").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      MASS.$("#familias").addEventListener("click", function (e) {
+        var b = e.target.closest("[data-color]");
+        if (b) elegir(b.getAttribute("data-color"), true);
+      });
+      elegir(actual);
+    });
+  </script>
+</body>
+</html>

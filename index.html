@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MASS · Muebles a tu medida · Córdoba</title>
+  <meta name="description" content="Racks, cómodas, bibliotecas y escritorios que personalizás en medidas y color. Fabricados en Córdoba, armados o en placas numeradas.">
+  <meta property="og:title" content="MASS · Tu mueble. Tus medidas.">
+  <meta property="og:description" content="Elegís el mueble, el color y las medidas. Lo fabricamos en Córdoba.">
+  <meta property="og:image" content="img/fotos/portada2-1000.jpg">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body class="pagina-inicio">
+  <div id="encabezado"></div>
+
+  <main id="contenido">
+    <!-- 1 · PORTADA: foto en tarjeta redondeada con panel translúcido. Textos en config/sitio.js -->
+    <section class="portada2">
+      <div class="wrap">
+        <div class="portada2__tarjeta">
+          <picture class="portada2__img">
+            <source media="(max-width: 700px)" srcset="img/fotos/portada2-1000.jpg">
+            <img src="img/fotos/portada2-2000.jpg" alt="Living con pared de paneles de madera y sillón crema" width="2000" height="1500" fetchpriority="high">
+          </picture>
+          <div class="portada2__panel" data-entrar>
+            <h1 class="portada2__titulo" data-texto="inicio.titulo"></h1>
+            <p class="portada2__bajada" data-texto="inicio.texto"></p>
+            <div class="acciones">
+              <a class="btn btn--primario" id="hero-configurar" href="mueble.html"><span data-texto="inicio.botonPrincipal"></span> <i aria-hidden="true">→</i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Garantías -->
+        <div class="garantias-barra">
+          <div data-ico="regla"><b>Medidas a elección</b><span>Al milímetro, dentro del rango</span></div>
+          <div data-ico="placa"><b>Placa de 18 mm</b><span><span id="hero-cant-colores">10</span> colores para elegir</span></div>
+          <div data-ico="caja"><b>Opción desarmado</b><span>Envío a todo el país</span></div>
+          <div data-ico="escudo"><b>Fabricado en Córdoba</b><span>En nuestro propio taller</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · COMPRÁ POR AMBIENTE (fotos desde config/ambientes.js) -->
+    <section class="seccion seccion--compacta" id="categorias">
+      <div class="wrap">
+        <div class="fila-titulo">
+          <h2 class="titulo-m">Comprá por ambiente</h2>
+          <a class="link-flecha" href="ambientes.html">Ver todos <i aria-hidden="true">→</i></a>
+        </div>
+        <div class="categorias" id="lista-categorias"></div>
+      </div>
+    </section>
+
+    <!-- 3 · DESTACADOS -->
+    <section class="seccion seccion--compacta" id="muebles">
+      <div class="wrap">
+        <div class="fila-titulo">
+          <h2 class="titulo-m">Destacados</h2>
+          <a class="link-flecha" href="muebles.html">Ver más <i aria-hidden="true">→</i></a>
+        </div>
+        <div class="grilla" id="grilla-inicio"></div>
+      </div>
+    </section>
+
+    <!-- 4 · CONFIGURADOR -->
+    <section class="seccion seccion--compacta" id="configurador">
+      <div class="wrap">
+        <div class="config-banda">
+          <div class="config-banda__texto">
+            <p class="etiqueta">Configurador MASS</p>
+            <h2 class="titulo-l">Diseñá el tuyo<br>en pocos pasos.</h2>
+            <p>Elegí medidas, distribución y acabado. Mirá el resultado al instante.</p>
+            <div class="demo__control">
+              <div class="demo__fila"><label for="demo-ancho">Ancho</label><b id="demo-ancho-txt"></b></div>
+              <input type="range" id="demo-ancho" step="10">
+            </div>
+            <div class="demo__control">
+              <div class="demo__fila"><span>Cajones</span><b id="demo-cajones-txt"></b></div>
+              <div class="opciones" id="demo-cajones" role="radiogroup" aria-label="Cajones"></div>
+            </div>
+            <div class="config-banda__pie">
+              <a class="btn" id="demo-abrir" href="mueble.html">Probar configurador <i aria-hidden="true">→</i></a>
+              <span class="config-banda__precio">Desde <b id="demo-precio"></b></span>
+            </div>
+          </div>
+          <div class="config-banda__visual">
+            <div class="visor" id="visor-demo" role="img" aria-label="Cómoda en 3D. Arrastrá para girarla."></div>
+            <!-- Cotas (medidas dibujadas alrededor del mueble) -->
+            <div class="cota cota--ancho" aria-hidden="true"><span id="cota-ancho"></span></div>
+            <div class="cota cota--alto" aria-hidden="true"><span id="cota-alto"></span></div>
+            <div class="cota cota--prof" aria-hidden="true"><span id="cota-prof"></span></div>
+            <span class="sr" id="demo-cotas"></span>
+            <div class="acabado">
+              <span>Acabado</span>
+              <div class="swatches swatches--chicos" id="demo-swatches" role="radiogroup" aria-label="Color"></div>
+              <b class="sr" id="demo-color"></b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · ARMÁ TU AMBIENTE (los muebles del juego se eligen en config/sitio.js) -->
+    <section class="seccion seccion--compacta" id="combo">
+      <div class="wrap">
+        <div class="fila-titulo">
+          <div>
+            <p class="etiqueta">Armá tu ambiente</p>
+            <h2 class="titulo-m" id="combo-titulo">Dormitorio en un solo color.</h2>
+          </div>
+        </div>
+        <div class="combo">
+          <div class="combo__items" id="combo-items"></div>
+          <div class="combo__total">
+            <span class="etiqueta">Color del juego</span>
+            <div class="swatches" id="combo-swatches" role="radiogroup" aria-label="Color del juego"></div>
+            <b class="combo__nombre-color" id="combo-color"></b>
+            <div class="combo__precio"><span>Total estimado</span><b id="combo-precio"></b></div>
+            <button class="btn btn--claro" type="button" id="combo-agregar">Agregar el juego al carrito <i aria-hidden="true">→</i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · CALIDAD (banda verde) -->
+    <section class="seccion seccion--compacta" id="material">
+      <div class="wrap">
+        <div class="calidad">
+          <div class="calidad__texto">
+            <p class="etiqueta">Materiales</p>
+            <h2 class="titulo-l">Calidad en<br>cada detalle.</h2>
+            <ul class="calidad__lista" id="calidad-lista">
+              <li data-ico="herraje"><b>Herrajes de primera</b><span>Guías telescópicas y bisagras con cierre suave.</span></li>
+              <li data-ico="canto"><b>Cantos resistentes</b><span>Canto en todos los bordes visibles.</span></li>
+              <li data-ico="placa"><b>Placa de 18 mm</b><span>Cuerpo y frentes, nada de 15 mm.</span></li>
+            </ul>
+            <div class="material__chips" id="tira-colores" aria-label="Colores disponibles"></div>
+          </div>
+          <div class="calidad__fotos">
+            <img src="img/fotos/listones-1000.jpg" alt="Frente de madera con listones verticales bajo luz de ventana" loading="lazy" decoding="async" width="1000" height="1500">
+            <img src="img/fotos/medida-1000.jpg" alt="Placa de madera clara con una medida marcada en lápiz" loading="lazy" decoding="async" width="1000" height="667">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · EL TALLER -->
+    <section class="seccion" id="taller">
+      <div class="wrap">
+        <div class="fila-titulo">
+          <div>
+            <p class="etiqueta">El taller</p>
+            <h2 class="titulo-m">Cortado en CNC, en Córdoba.</h2>
+          </div>
+          <a class="link-flecha" href="taller.html">Cómo trabajamos <i aria-hidden="true">→</i></a>
+        </div>
+        <div class="trio">
+          <article class="trio__item">
+            <div class="trio__img"><img src="img/fotos/cnc-fresa-1000.jpg" alt="Fresa del router CNC sobre una placa recién mecanizada" loading="lazy" decoding="async" width="1000" height="1500"></div>
+            <div class="trio__txt"><span>01</span><b>Corte CNC</b><p>Optimizamos la placa y el router corta cada pieza.</p></div>
+          </article>
+          <article class="trio__item">
+            <div class="trio__img"><img src="img/fotos/cnc-piezas-1000.jpg" alt="Piezas cortadas apiladas sobre la mesa del router CNC" loading="lazy" decoding="async" width="1000" height="667"></div>
+            <div class="trio__txt"><span>02</span><b>Piezas etiquetadas</b><p>Cada pieza sale numerada con su lugar en el mueble.</p></div>
+          </article>
+          <article class="trio__item">
+            <div class="trio__img"><img src="img/fotos/placas-1000.jpg" alt="Pila de placas de madera vistas de canto" loading="lazy" decoding="async" width="1000" height="667"></div>
+            <div class="trio__txt"><span>03</span><b>Entrega</b><p>Armado en Córdoba o en paquetes planos a todo el país.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · CIERRE -->
+    <section class="seccion seccion--compacta cierre2">
+      <div class="wrap">
+        <div class="cierre2__tarjeta">
+          <img src="img/fotos/living-2000.jpg" alt="Mueble de pared de madera clara con estantes y cajones" loading="lazy" decoding="async" width="2000" height="1333">
+          <div class="cierre2__panel">
+            <h2 class="titulo-l">Tu mueble,<br>a tu medida.</h2>
+            <a class="btn btn--primario" href="muebles.html">Ver los muebles <i aria-hidden="true">→</i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="config/ambientes.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/inicio.js"></script>
+</body>
+</html>

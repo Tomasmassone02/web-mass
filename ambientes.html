@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ambientes · MASS</title>
+  <meta name="description" content="Muebles MASS por ambiente: dormitorio, living, oficina en casa y recibidor.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <section class="portada">
+      <div class="wrap" data-entrar>
+        <p class="etiqueta">Ambientes</p>
+        <h1>Un ambiente, un mismo decorado</h1>
+        <p>Armamos combinaciones de muebles que funcionan juntas. Todas se pueden ajustar a la medida de tu pared.</p>
+      </div>
+    </section>
+    <div id="lista"></div>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="config/ambientes.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var lista = MASS.$("#lista");
+      MASS.ambientes.forEach(function (a, i) {
+        var prods = a.productos.map(MASS.producto).filter(Boolean);
+        var sec = document.createElement("section");
+        sec.className = "seccion" + (i % 2 ? " seccion--piedra" : "");
+        sec.id = a.id;
+        sec.innerHTML =
+          '<div class="wrap amb-bloque">' +
+          '  <div class="amb-bloque__img"></div>' +
+          '  <div class="amb-bloque__txt">' +
+          '    <p class="etiqueta">' + String(i + 1).padStart(2, "0") + " · Ambiente</p>" +
+          '    <h2 class="seccion__titulo">' + MASS.esc(a.nombre) + "</h2>" +
+          '    <p class="seccion__texto">' + MASS.esc(a.texto) + "</p>" +
+          '    <ul class="amb-bloque__lista">' + prods.map(function (p) {
+                return '<li><a href="mueble.html?id=' + p.id + '">' + MASS.esc(p.nombre) + "<span>" + MASS.medidasTexto(MASS.confDefecto(p)) + "</span></a></li>";
+              }).join("") + "</ul>" +
+          "  </div>" +
+          "</div>";
+        lista.appendChild(sec);
+        MASS.imagenAmbiente(a, sec.querySelector(".amb-bloque__img"), 1200, 900);
+      });
+      if (location.hash) {
+        var t = document.querySelector(location.hash);
+        if (t) setTimeout(function () { t.scrollIntoView(); }, 50);
+      }
+    });
+  </script>
+</body>
+</html>

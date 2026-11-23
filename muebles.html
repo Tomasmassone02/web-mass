@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Muebles · MASS</title>
+  <meta name="description" content="Catálogo de muebles MASS: cómodas, mesas de luz, racks, bibliotecas y escritorios que podés configurar en color y medidas.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <section class="portada">
+      <div class="wrap" data-entrar>
+        <p class="etiqueta">Catálogo</p>
+        <h1>Muebles para configurar</h1>
+        <p>Cada mueble tiene medidas de fábrica, pero podés cambiar el ancho, el alto, la profundidad, los cajones y el color. Tocá uno para empezar.</p>
+      </div>
+    </section>
+    <section class="seccion" style="border-bottom:0">
+      <div class="wrap">
+        <div class="barra-filtros"><div class="filtros" id="filtros" role="group" aria-label="Filtrar por ambiente"></div><label class="buscador" for="buscar"><span class="sr">Buscar muebles</span><input id="buscar" type="search" placeholder="Buscar: cómoda, rack, escritorio…" autocomplete="off"></label></div><p class="sin-resultados" id="sin-resultados" hidden>No encontramos muebles con ese nombre.</p>
+        <div class="grilla" id="grilla"></div>
+      </div>
+    </section>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var params = new URLSearchParams(location.search);
+      var actual = params.get("cat") || "todos";
+      var filtros = MASS.$("#filtros");
+      var grilla = MASS.$("#grilla");
+      var cats = [{ id: "todos", nombre: "Todos" }].concat(MASS.categorias);
+
+      function pintar() {
+        filtros.innerHTML = cats.map(function (c) {
+          return '<button class="chip" type="button" data-cat="' + c.id + '" aria-pressed="' + (c.id === actual) + '">' + MASS.esc(c.nombre) + "</button>";
+        }).join("");
+        var q = (MASS.$("#buscar").value || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+        var lista = MASS.productos.filter(function (p) {
+          var texto = (p.nombre + " " + p.descripcion).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+          return (actual === "todos" || p.categoria === actual) && (!q || texto.indexOf(q) >= 0);
+        });
+        MASS.$("#sin-resultados").hidden = lista.length > 0;
+        grilla.innerHTML = lista.map(MASS.tarjeta).join("");
+        MASS.cargarFotos(grilla);
+      }
+      filtros.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-cat]");
+        if (!b) return;
+        actual = b.getAttribute("data-cat");
+        history.replaceState(null, "", actual === "todos" ? "muebles.html" : "muebles.html?cat=" + actual);
+        pintar();
+      });
+      MASS.$("#buscar").addEventListener("input", pintar);
+      if (location.hash === "#buscar") MASS.$("#buscar").focus();
+      pintar();
+    });
+  </script>
+</body>
+</html>

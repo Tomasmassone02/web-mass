@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Configurá tu mueble · MASS</title>
+  <meta name="description" content="Elegí color, medidas y cajones, mirá tu mueble en 3D y agregalo al carrito.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <div class="wrap">
+      <nav class="migas" aria-label="Ubicación"><a href="index.html">Inicio</a><span aria-hidden="true">/</span><a href="muebles.html">Muebles</a><span aria-hidden="true">/</span><a id="miga-cat" href="muebles.html"></a><span aria-hidden="true">/</span><span id="miga-nombre"></span></nav>
+
+      <div class="ficha">
+        <!-- Galería: vistas del 3D + foto del ambiente -->
+        <div class="ficha__galeria">
+          <div class="ficha__vistas" id="vistas" role="group" aria-label="Vistas del mueble">
+            <button type="button" class="vista" data-yaw="-0.6" aria-pressed="true"><span class="vista__img" data-vista="-0.6"></span><span>3/4</span></button>
+            <button type="button" class="vista" data-yaw="0" aria-pressed="false"><span class="vista__img" data-vista="0"></span><span>Frente</span></button>
+            <button type="button" class="vista" data-yaw="-1.25" aria-pressed="false"><span class="vista__img" data-vista="-1.25"></span><span>Lateral</span></button>
+            <button type="button" class="vista" data-foto aria-pressed="false" id="vista-foto" hidden><span class="vista__img"><img id="vista-foto-img" alt=""></span><span>Ambiente</span></button>
+          </div>
+          <div class="ficha__escenario">
+            <div class="visor" id="visor" role="img" aria-label="Vista 3D del mueble. Arrastrá para girarlo."></div>
+            <img class="ficha__foto" id="foto-ambiente" alt="" hidden>
+            <div class="ficha__cotas mono" id="cotas" aria-live="polite"></div>
+            <span class="pista ficha__pista">Arrastrá para girar</span>
+          </div>
+        </div>
+
+        <!-- Opciones y compra -->
+        <form class="ficha__panel" id="panel" onsubmit="return false">
+          <div class="ficha__sello"><span class="etiqueta" id="p-cat"></span><span class="sello">Fabricado a medida</span></div>
+          <h1 class="ficha__titulo" id="p-nombre"></h1>
+          <div class="ficha__precio"><b id="p-precio"></b><span>Precio estimado · el final se confirma antes de pagar</span></div>
+          <p class="ficha__desc" id="p-desc"></p>
+
+          <div class="grupo">
+            <div class="grupo__cab"><h2>Color: <span id="color-nombre"></span></h2><a class="link-chico" href="colores.html">Ver colores</a></div>
+            <div class="swatches" id="swatches" role="radiogroup" aria-label="Color"></div>
+          </div>
+
+          <div class="grupo" id="grupo-medidas">
+            <div class="grupo__cab"><h2>Medidas</h2><span>en milímetros</span></div>
+          </div>
+
+          <div class="grupo" id="grupo-frentes">
+            <div class="grupo__cab"><h2 id="frentes-titulo">Cajones</h2><span id="frentes-total"></span></div>
+            <div class="opciones" id="opc-frente" role="radiogroup" aria-label="Tipo de frente"></div>
+            <div class="contadores" id="contadores"></div>
+          </div>
+
+          <div class="grupo" id="grupo-base">
+            <div class="grupo__cab"><h2>Base</h2></div>
+            <div class="opciones" id="opc-base" role="radiogroup" aria-label="Base"></div>
+          </div>
+
+          <div class="ficha__compra">
+            <div class="contador-ctrl cantidad" aria-label="Cantidad">
+              <button type="button" id="menos" aria-label="Uno menos">−</button>
+              <div><b id="cantidad">1</b></div>
+              <button type="button" id="mas" aria-label="Uno más">+</button>
+            </div>
+            <button class="btn btn--oscuro btn--compra" type="button" id="agregar">Agregar al carrito</button>
+          </div>
+          <a class="btn btn--primario btn--ancho" id="ver-pedido" href="carrito.html" hidden>Ir al carrito <i aria-hidden="true">→</i></a>
+
+          <ul class="garantias" id="garantias"></ul>
+
+          <details class="resumen-desplegable">
+            <summary>Resumen de tu configuración</summary>
+            <div class="resumen-mini"><dl id="resumen"></dl></div>
+            <button class="btn-texto" type="button" id="restablecer">Volver a las medidas de fábrica</button>
+          </details>
+        </form>
+      </div>
+    </div>
+
+    <!-- Pestañas de información -->
+    <section class="seccion">
+      <div class="wrap info-prod">
+        <div>
+          <div class="pestanas" role="tablist" aria-label="Información del mueble">
+            <button role="tab" id="t1" aria-controls="p1" aria-selected="true">Detalles</button>
+            <button role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Materiales</button>
+            <button role="tab" id="t3" aria-controls="p3" aria-selected="false" tabindex="-1">Envío y armado</button>
+          </div>
+          <div class="panel-pestana" role="tabpanel" id="p1" aria-labelledby="t1">
+            <p id="det-desc"></p>
+            <ul class="lista-ico" id="det-lista"></ul>
+          </div>
+          <div class="panel-pestana" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+            <p>Cuerpo y frentes en melamina de 18 mm, con canto en todos los bordes visibles. Fondo de 5,5 mm.</p>
+            <ul class="lista-ico"><li>Guías telescópicas en los cajones</li><li>Bisagras de cierre suave en las puertas</li><li>Uñero fresado en lugar de tiradores</li><li>Patas de hierro pintado (si elegís base con patas)</li></ul>
+          </div>
+          <div class="panel-pestana" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+            <p>Retirás en el taller, te lo llevamos armado dentro de Córdoba o lo despachamos desarmado al resto del país.</p>
+            <ul class="lista-ico"><li>Piezas numeradas con etiqueta</li><li>Herrajes e instructivo incluidos</li><li>Costo de envío según destino, se confirma con el pedido</li></ul>
+          </div>
+        </div>
+        <div class="info-prod__foto"><img src="img/fotos/listones-1000.jpg" alt="Detalle de un frente de madera con listones verticales" loading="lazy" decoding="async" width="1000" height="1500"></div>
+      </div>
+    </section>
+
+    <section class="seccion seccion--piedra">
+      <div class="wrap">
+        <div class="fila-titulo">
+          <h2 class="titulo-m">También te puede gustar</h2>
+          <a class="link-flecha" href="muebles.html">Ver todo <i aria-hidden="true">→</i></a>
+        </div>
+        <div class="grilla" id="relacionados"></div>
+      </div>
+    </section>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="config/ambientes.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/configurador.js"></script>
+</body>
+</html>

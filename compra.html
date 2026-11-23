@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finalizar compra · MASS</title>
+  <meta name="description" content="Completá tus datos y la forma de entrega para confirmar tu pedido en MASS.">
+  <meta name="theme-color" content="#F4F0EA">
+  <link rel="icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/secciones.css">
+  <link rel="stylesheet" href="css/suave.css">
+</head>
+<body>
+  <div id="encabezado"></div>
+  <main id="contenido">
+    <section class="seccion seccion--compacta">
+      <div class="wrap">
+        <ol class="pasos-compra" aria-label="Pasos de la compra" id="pasos">
+          <li class="is-hecho"><span>1</span><a href="carrito.html">Carrito</a></li>
+          <li aria-current="step"><span>2</span>Datos y entrega</li>
+          <li><span>3</span>Confirmación</li>
+        </ol>
+        <h1 class="titulo-m titulo-pagina" id="titulo-compra">Datos y entrega</h1>
+      </div>
+    </section>
+
+    <section class="seccion" style="padding-top:32px">
+      <div class="wrap compra">
+        <!-- Formulario -->
+        <form class="formulario" id="form" novalidate>
+          <fieldset>
+            <legend>Tus datos</legend>
+            <div class="campos-2">
+              <div class="campo"><label for="f-nombre">Nombre y apellido</label><input id="f-nombre" name="nombre" autocomplete="name" required><small class="error" hidden>Escribí tu nombre.</small></div>
+              <div class="campo"><label for="f-tel">Teléfono</label><input id="f-tel" name="telefono" type="tel" autocomplete="tel" required><small class="error" hidden>Necesitamos un teléfono para coordinar.</small></div>
+            </div>
+            <div class="campo"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><small class="error" hidden>Revisá el email.</small></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Entrega</legend>
+            <div class="radios" id="entregas">
+              <label class="radio"><input type="radio" name="entrega" value="Retiro en el taller" checked><span><b>Retiro en el taller</b><small>Córdoba · sin costo</small></span></label>
+              <label class="radio"><input type="radio" name="entrega" value="Envío armado (Córdoba)"><span><b>Envío armado</b><small>Córdoba y alrededores · costo según zona</small></span></label>
+              <label class="radio"><input type="radio" name="entrega" value="Envío desarmado (todo el país)"><span><b>Envío desarmado</b><small>Todo el país · costo según destino</small></span></label>
+            </div>
+            <div class="campos-2" id="campos-direccion" hidden>
+              <div class="campo"><label for="f-dir">Calle y número</label><input id="f-dir" name="direccion" autocomplete="street-address"></div>
+              <div class="campo"><label for="f-loc">Localidad y provincia</label><input id="f-loc" name="localidad" autocomplete="address-level2"></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Forma de pago</legend>
+            <div class="radios">
+              <label class="radio"><input type="radio" name="pago" value="Transferencia bancaria" checked><span><b>Transferencia bancaria</b><small>Te pasamos los datos al confirmar el pedido</small></span></label>
+              <label class="radio"><input type="radio" name="pago" value="Mercado Pago"><span><b>Mercado Pago</b><small>Te enviamos el link de pago al confirmar</small></span></label>
+              <label class="radio"><input type="radio" name="pago" value="Efectivo al retirar"><span><b>Efectivo</b><small>Al retirar en el taller</small></span></label>
+            </div>
+          </fieldset>
+
+          <div class="campo"><label for="f-notas">Comentarios (opcional)</label><textarea id="f-notas" name="notas" placeholder="Medidas del lugar, horarios, dudas…"></textarea></div>
+
+          <button class="btn btn--oscuro btn--compra" type="submit">Confirmar pedido <i aria-hidden="true">→</i></button>
+          <p class="nota">Todavía no se cobra nada. Revisamos tu pedido y te respondemos con el precio final, el envío y la fecha de entrega.</p>
+        </form>
+
+        <!-- Confirmación (se muestra al enviar) -->
+        <div class="confirmacion" id="confirmacion" hidden>
+          <span class="confirmacion__ok" aria-hidden="true">✓</span>
+          <h2 class="titulo-m">¡Pedido recibido!</h2>
+          <p>Número de pedido <b class="mono" id="nro-pedido"></b>. Mandanos el resumen para que lo veamos más rápido:</p>
+          <div class="acciones">
+            <a class="btn btn--primario" id="btn-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp <i aria-hidden="true">→</i></a>
+            <a class="btn" id="btn-mail" href="#">Enviar por email</a>
+            <button class="btn" type="button" id="btn-copiar">Copiar resumen</button>
+          </div>
+          <pre class="resumen-texto" id="resumen-texto"></pre>
+          <a class="link-flecha" href="index.html">Volver al inicio <i aria-hidden="true">→</i></a>
+        </div>
+
+        <aside class="caja caja--resumen" id="resumen-caja">
+          <h2 class="titulo-s">Tu pedido</h2>
+          <div class="mini-items" id="mini-items"></div>
+          <dl class="totales">
+            <dt>Subtotal</dt><dd id="subtotal"></dd>
+            <dt>Envío</dt><dd id="envio">Sin costo</dd>
+          </dl>
+          <div class="total"><span>Total estimado</span><b id="total"></b></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <div id="pie"></div>
+
+  <script src="config/sitio.js"></script>
+  <script src="config/colores.js"></script>
+  <script src="config/productos.js"></script>
+  <script src="js/mueble3d.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/compra.js"></script>
+</body>
+</html>
