@@ -257,3 +257,44 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 
 .pie__marca p, .pie .etiqueta, .pie__legal { color: #B9BBA9; }
 .pie ul a:hover { color: #DCE3CF; }
 .aviso { border-radius: 999px; background: var(--acento-osc); }
+
+/* =====================================================================
+   Ajustes de estética (nov 2026): títulos, portada y destacados en celular
+   ===================================================================== */
+
+/* Títulos: reparte los renglones parejo ("Tu mueble. / Tus medidas.") */
+h1, h2, h3 { text-wrap: balance; }
+
+/* Fila de título + link ("Ver todos →"): link alineado con la línea del título, como en el boceto */
+.fila-titulo { align-items: flex-end; align-items: last baseline; }
+.fila-titulo .link-flecha { min-height: 0; padding-block: 10px 2px; font-size: 15.5px; color: var(--tinta-suave); flex: none; }
+.fila-titulo .link-flecha:hover { color: var(--acento); }
+
+/* Portada en celular: panel más chico y prolijo, se ve más la foto */
+@media (max-width: 960px) {
+  .portada2__img { aspect-ratio: 4 / 3.4; }
+  .portada2__panel { margin: -56px 12px 12px; padding: 22px 20px 20px; gap: 14px; max-width: none; }
+  .portada2__titulo { font-size: clamp(34px, 9.4vw, 52px); line-height: 1.02; }
+  .portada2__bajada { font-size: 15.5px; line-height: 1.5; }
+  .portada2__panel .btn { min-height: 50px; }
+}
+
+/* Destacados y catálogo en celular: 2 columnas compactas (como el boceto) */
+@media (max-width: 520px) {
+  .grilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .tarjeta__img { aspect-ratio: 1; }
+  .tarjeta__cat { left: 8px; top: 8px; font-size: 9px; padding: 4px 8px; letter-spacing: .14em; }
+  .tarjeta__cuerpo { padding: 12px 12px 12px; gap: 6px; }
+  .tarjeta__titulo { font-size: 15.5px; line-height: 1.2; }
+  .tarjeta__precio { font-size: 14px; }
+  .tarjeta__desc, .tarjeta__medidas { display: none; }
+  .punto { width: 17px; height: 17px; }
+  .puntos { gap: 4px; font-size: 11px; }
+  .tarjeta__boton { min-height: 40px; font-size: 14px; margin-top: 4px; gap: 6px; }
+}
+
+/* Tarjetas parejas: el botón siempre abajo y las medidas en un renglón */
+.tarjeta__cuerpo { flex: 1; display: flex; flex-direction: column; }
+.tarjeta__boton { margin-top: auto; }
+.tarjeta__desc { flex: 1; }
+.tarjeta__medidas { white-space: nowrap; }
