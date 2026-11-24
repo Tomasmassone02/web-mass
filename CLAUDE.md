@@ -14,6 +14,7 @@ Tienda web de muebles estándar que el cliente personaliza (color, medidas, cajo
 - Datos editables en `config/` (sitio, productos, colores, ambientes). Precios y medidas **de ejemplo**.
 - Fotos de muestra de Unsplash en `img/fotos/` (créditos en `creditos.html`). Tomás las va a reemplazar.
 - Publicado en Netlify: https://mass-muebles.netlify.app (con protección: solo se ve con la cuenta de Tomás). La carpeta `.netlify/` guarda el enlace al sitio.
+- Desde sesiones en la nube: usar el entorno "web-mass" (tiene acceso a Netlify guardado) y publicar con la API de Netlify subiendo un zip (sitio `mass-muebles`, sin CLAUDE.md ni `referencias/`).
 - Para publicar: `netlify deploy --prod --dir <copia sin .claude, .netlify, README.md, netlify.toml>`. **Siempre pedir OK antes de publicar.**
 
 ## Cómo quiere trabajar Tomás
@@ -35,7 +36,8 @@ Tienda web de muebles estándar que el cliente personaliza (color, medidas, cajo
 
 ## Pendientes inmediatos
 - Que Tomás mande sus **códigos de color exactos** (si no, queda la paleta del boceto).
-- Revisar visualmente en PC y celular las páginas internas con el estilo nuevo (catálogo, ficha, carrito, compra, colores, ambientes, taller).
+- Páginas internas pulidas con el estilo nuevo (nov 2026). Falta que Tomás las revise en el celular.
+- Opcional (boceto): "Comprá por ambiente" en una sola fila en celular.
 - Cargar el WhatsApp en `config/sitio.js`.
 - Reemplazar fotos de muestra por fotos propias (taller, muebles terminados, detalles).
 

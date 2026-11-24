@@ -298,3 +298,85 @@ h1, h2, h3 { text-wrap: balance; }
 .tarjeta__boton { margin-top: auto; }
 .tarjeta__desc { flex: 1; }
 .tarjeta__medidas { white-space: nowrap; }
+
+/* =====================================================================
+   Páginas internas (catálogo, ficha, carrito, colores, ambientes, taller)
+   ===================================================================== */
+
+/* Encabezados de página: más compactos y con la etiqueta chica como en el inicio */
+.portada { padding-block: clamp(28px, 5vw, 64px) clamp(20px, 2.5vw, 32px); }
+.portada h1 { font-size: clamp(34px, 4.4vw, 60px); line-height: 1.05; margin-top: 10px; max-width: 18ch; }
+.portada .etiqueta { font-size: 12px; margin-top: 0; color: var(--tinta-suave); }
+.portada p:not(.etiqueta) { font-size: clamp(16px, 1.3vw, 18px); margin-top: 14px; line-height: 1.55; }
+
+/* Secciones de páginas internas: menos aire vacío */
+body:not(.pagina-inicio) .seccion:not(.seccion--compacta) { padding-block: clamp(40px, 6vw, 88px); }
+body:not(.pagina-inicio) .seccion--compacta { padding-block: clamp(24px, 4vw, 48px) 0; }
+body:not(.pagina-inicio) .portada + .seccion,
+body:not(.pagina-inicio) .portada + .wrap + .seccion { padding-top: clamp(20px, 3vw, 36px); }
+.seccion__titulo { font-size: clamp(30px, 3.4vw, 48px); max-width: 18ch; }
+.seccion__cab { gap: 10px; margin-bottom: clamp(24px, 3vw, 40px); }
+
+/* Catálogo: filtros en una sola fila que se desliza en el celular */
+.filtros .chip, .filtros .opcion, .filtros button { min-height: 42px; padding-inline: 18px; }
+@media (max-width: 700px) {
+  .barra-filtros { gap: 12px; margin-bottom: 22px; }
+  .barra-filtros .filtros {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; width: calc(100% + 2 * var(--borde-wrap));
+    margin-inline: calc(-1 * var(--borde-wrap)); padding: 2px var(--borde-wrap);
+  }
+  .barra-filtros .filtros::-webkit-scrollbar { display: none; }
+  .barra-filtros .filtros > * { flex: none; }
+}
+.buscador input { border-radius: 999px; padding-inline: 20px; }
+
+/* Ficha del mueble */
+.ficha { padding-bottom: clamp(24px, 4vw, 48px); }
+.ficha__titulo { font-weight: 600; }
+.ficha__precio b { font-weight: 600; font-stretch: 100%; }
+.resumen-desplegable { border-top: 0; margin-top: 20px; background: var(--blanco); border-radius: var(--radio-chico); box-shadow: var(--sombra); }
+.resumen-desplegable summary { list-style: none; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+.resumen-desplegable summary::-webkit-details-marker { display: none; }
+.resumen-desplegable summary::after { content: "+"; color: var(--acento); font-size: 20px; font-weight: 400; transition: transform .25s var(--facil); }
+.resumen-desplegable[open] summary::after { transform: rotate(45deg); }
+.resumen-desplegable .resumen-mini { padding: 0 18px 16px; }
+.ficha__vistas button, .vista { border-radius: var(--radio-chico); }
+
+/* Carrito y compra */
+.titulo-pagina { margin-top: 18px; }
+.vacio { border-top: 0; background: var(--blanco); border-radius: var(--radio); box-shadow: var(--sombra); padding: clamp(28px, 4vw, 48px); }
+.vacio h2 { font-size: clamp(24px, 2.4vw, 32px); }
+.vacio p { color: var(--tinta-suave); }
+.pasos-compra li[aria-current] span { color: #fff; }
+@media (max-width: 520px) { .pasos-compra { gap: 8px 16px; font-size: 13px; } .vacio .btn { width: 100%; } }
+
+/* Taller */
+.banda-foto { margin: 0; height: clamp(240px, 46vh, 520px); }
+.proceso { background: var(--acento); color: #F4F2EA; border-radius: var(--radio); padding: clamp(28px, 5vw, 64px); }
+.proceso .etiqueta { color: #DCE3CF; }
+.proceso .pasos { border-top-color: rgba(255,255,255,.22); }
+.proceso .paso + .paso { border-left-color: rgba(255,255,255,.18); }
+.proceso .paso__num { color: #DCE3CF; font-family: var(--fuente); font-weight: 600; font-size: 15px; }
+.proceso .paso h3 { font-size: clamp(21px, 1.9vw, 26px); }
+.proceso .paso p { color: #DCE3CF; }
+@media (max-width: 860px) { .proceso .paso, .proceso .paso + .paso { border-bottom-color: rgba(255,255,255,.18); } .proceso .paso:last-child { border-bottom: 0; padding-bottom: 0; } }
+.para-quien { max-width: 16ch; }
+.para-quien em { font-style: normal; color: var(--acento); }
+.dos-col { border-top: 0; padding-top: 0; margin-top: clamp(24px, 4vw, 44px); }
+.dato-fila { background: var(--blanco); border-radius: var(--radio); box-shadow: var(--sombra); padding: 22px 24px; }
+.dato-fila b { font-size: 19px; font-weight: 600; }
+.faq summary { font-weight: 600; font-size: clamp(17px, 1.5vw, 20px); }
+
+/* Ficha: menos hueco entre el configurador y las pestañas */
+.wrap:has(> .ficha) + .seccion { padding-top: clamp(24px, 3vw, 40px); }
+
+/* Carrito: cada mueble en una tarjeta blanca */
+.items { border-top: 0; display: grid; gap: 14px; }
+.item { background: var(--blanco); border: 0; border-radius: var(--radio); box-shadow: var(--sombra); padding: 14px; grid-template-columns: 120px 1fr; gap: 16px; }
+.item h3 { font-size: 19px; font-weight: 600; }
+.item__cab b { font-weight: 600; }
+.item__datos { font-family: var(--fuente); }
+.item__acciones { gap: 18px; }
+.item__acciones .btn-texto { display: inline-flex; align-items: center; min-height: 40px; margin: 0; padding: 0; font-size: 14px; color: var(--tinta-suave); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.item__acciones .btn-texto:hover { color: var(--acento); }
+@media (max-width: 520px) { .item { grid-template-columns: 92px 1fr; gap: 12px; padding: 12px; } .item h3 { font-size: 17px; } }
